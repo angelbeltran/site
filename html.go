@@ -81,6 +81,9 @@ func (s *htmlTemplateServer) serveErrorf(w http.ResponseWriter, statusCode int, 
 	http.Error(w, fmt.Sprintf(msg, args...), statusCode)
 }
 
+// bufferedResponseWriter is a http.ResponseWriter that acts as a buffered proxy
+// for a http.ResponseWriter. It allows for the use of http.FileServer to search
+// for and serve the respective html template file without actually serving it.
 type bufferedResponseWriter struct {
 	header     http.Header
 	buf        *bytes.Buffer
