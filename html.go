@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	_ "embed"
 	"fmt"
 	"html/template"
 	"io"
@@ -10,42 +11,8 @@ import (
 	"strings"
 )
 
-const (
-	layout = `
-		{{define "title"}}{{end}}
-		<!DOCTYPE html>
-		<html>
-		<head>
-			{{block "head" .}}
-			<link rel="stylesheet" href="./css/styles.css">
-			<title>{{template "title" .}} - Angel Beltran</title>
-			{{end}}
-		</head>
-
-		<body>
-			{{block "header" .}}
-			<header>
-				<h1>{{template "title" .}}</h1>
-				<p>{{block "description" .}}{{end}}</p>
-
-				{{block "nav" .}}
-				<nav>
-					<a href="/home">Home</a>
-					<a href="/about-me">About Me</a>
-					<a href="/blog">Blog</a>
-				</nav>
-				{{end}}
-			</header>
-			{{end}}
-
-			<img src="/images/work-in-progress.jpeg" alt="Work in progress" width="500" height="500">
-
-			{{block "content" .}}{{end}}
-			{{block "footer" .}}{{end}}
-		</body>
-		</html>
-	`
-)
+//go:embed layout.html.tmpl
+var layoutTemplate string
 
 type htmlTemplateServer struct {
 	root string
@@ -83,7 +50,7 @@ func (s *htmlTemplateServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	layout, err := template.New("layout").Parse(layout)
+	layout, err := template.New("layout").Parse(layoutTemplate)
 	if err != nil {
 		s.serveErrorf(
 			w,
