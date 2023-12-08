@@ -8,13 +8,13 @@ import (
 func main() {
 	mux := http.NewServeMux()
 
-	staticFileServer := logRequests("static", http.FileServer(http.Dir("./static")))
-	mux.Handle("/css/", staticFileServer)
-	mux.Handle("/js/", staticFileServer)
-	mux.Handle("/images/", staticFileServer)
-	mux.Handle("/favicon.ico", staticFileServer)
+	publicFileServer := logRequests("public", http.FileServer(http.Dir("./public")))
+	mux.Handle("/css/", publicFileServer)
+	mux.Handle("/js/", publicFileServer)
+	mux.Handle("/images/", publicFileServer)
+	mux.Handle("/favicon.ico", publicFileServer)
 	mux.Handle("/", logRequests("html", &htmlTemplateServer{
-		root: "./static/html",
+		root: "./public/html",
 	}))
 
 	s := http.Server{

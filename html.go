@@ -46,10 +46,33 @@ func (s *htmlTemplateServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b := bw.buf.Bytes()
+	page, err := template.New("page").Parse(`
+		<!DOCTYPE html>
+		<html>
+		<head>
+			{{block "head" .}}
+			<link rel="stylesheet" href="./css/styles.css">
+			<title>{{block "title" .}}{{end}}</title>
+			{{end}}
+		</head>
 
-	t, err := template.New(name).Parse(string(b))
+		<body>
+			{{block "body" .}}{{end}}
+		</body>
+		</html>
+	`)
 	if err != nil {
+		s.serveErrorf(
+			w,
+			http.StatusInternalServerError,
+			"Failed to parse outer html template %s: %v",
+			name,
+			err,
+		)
+		return
+	}
+
+	if _, err := page.New(name).Parse(string(bw.buf.Bytes())); err != nil {
 		s.serveErrorf(
 			w,
 			http.StatusInternalServerError,
@@ -61,11 +84,11 @@ func (s *htmlTemplateServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	out := bytes.NewBuffer(nil)
-	if err = t.Execute(out, map[string]any{}); err != nil {
+	if err = page.Execute(out, map[string]any{}); err != nil {
 		s.serveErrorf(
 			w,
 			http.StatusInternalServerError,
-			"Failed to execute html template %s: %v",
+			"Failed to execute full html template %s: %v",
 			name,
 			err,
 		)
