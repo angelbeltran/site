@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	pageTemplate = `
+	layout = `
 		{{define "title"}}{{end}}
 		<!DOCTYPE html>
 		<html>
@@ -83,7 +83,7 @@ func (s *htmlTemplateServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	page, err := template.New("page").Parse(pageTemplate)
+	layout, err := template.New("layout").Parse(layout)
 	if err != nil {
 		s.serveErrorf(
 			w,
@@ -95,7 +95,7 @@ func (s *htmlTemplateServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if _, err := page.New(name).Parse(string(bw.buf.Bytes())); err != nil {
+	if _, err := layout.New(name).Parse(string(bw.buf.Bytes())); err != nil {
 		s.serveErrorf(
 			w,
 			http.StatusInternalServerError,
@@ -107,7 +107,7 @@ func (s *htmlTemplateServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	out := bytes.NewBuffer(nil)
-	if err = page.Execute(out, map[string]any{}); err != nil {
+	if err = layout.Execute(out, map[string]any{}); err != nil {
 		s.serveErrorf(
 			w,
 			http.StatusInternalServerError,
