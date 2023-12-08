@@ -1,20 +1,13 @@
-{{define "title"}}About Me - Angel Beltran{{end}}
+{{define "title"}}About Me{{end}}
 
-{{define "body"}}
-<header>
-	<h1>About Me</h1>
-	<p>
-		This page is about me.
-		It's a work in progress.
-	</p>
 
-	<nav>
-		<a href="/home">Home</a>
-		<a href="/about-me">About Me</a>
-		<a href="/blog">Blog</a>
-	</nav>
-</header>
+{{define "description"}}
+	This page is about me.
+	It's a work in progress.
+{{end}}
 
+
+{{define "content"}}
 <figure>
 	<img src="/images/work-in-progress.jpeg" alt="Angel Beltran" width="500" height="500">
 	<figcaption>
@@ -22,63 +15,60 @@
 	</figcaption>
 </figure>
 
-<main>
-	<h1>About Me</h1>
+<h2>Hobbies</h2>
 
-	<h2>Hobbies</h2>
+<article>
+	<h3>Ultimate Frisbee</h2>
+	<p>
+		I've been playing on an off for a few years.
+		I play with the local club.
+		It's fun and helps keep me in shape.
+		A fun way to meet people.
+	</p>
+</article>
 
-	<article>
-		<h3>Ultimate Frisbee</h2>
-		<p>
-			I've been playing on an off for a few years.
-			I play with the local club.
-			It's fun and helps keep me in shape.
-			A fun way to meet people.
-		</p>
-	</article>
+<article>
+	<h3>Wine making</h3>
+	<p>
+		A new hobby I'm just getting into.
+		First batches of wine failed (spoiled).
+		One gallon of watermelon must and one gallon of grapefruit must.
+	</p>
+	<p>
+		Trying again with a couple grape batches, and with a couple pomegranate batches. 
+	</p>
+</article>
 
-	<article>
-		<h3>Wine making</h3>
-		<p>
-			A new hobby I'm just getting into.
-			First batches of wine failed (spoiled).
-			One gallon of watermelon must and one gallon of grapefruit must.
-		</p>
-		<p>
-			Trying again with a couple grape batches, and with a couple pomegranate batches. 
-		</p>
-	</article>
+<article>
+	<h3>Programming</h3>
+	<p>
+		Tried making christmas light setup that played to music using a raspberry pi.
+	</p>
+	<p>
+		This personal website.
+		Javascript games.
+	</p>
+</article>
 
-	<article>
-		<h3>Programming</h3>
-		<p>
-			Tried making christmas light setup that played to music using a raspberry pi.
-		</p>
-		<p>
-			This personal website.
-			Javascript games.
-		</p>
-	</article>
+<article>
+	<h3>Gardening</h3>
+	<p>
+		Just got into it this year.
+		Grew green onions, peas, summer squash, zucchini squash, watermelon, canteloupe, goldenmelon, and honeydew melon.
+		Not much of a harvest for any of them, but much fun.
+		Very fulfilling.
+		Failed to grow any brocolli, cauliflower, or potatoes.
+	</p>
+</article>
+{{end}}
 
-	<article>
-		<h3>Gardening</h3>
-		<p>
-			Just got into it this year.
-			Grew green onions, peas, summer squash, zucchini squash, watermelon, canteloupe, goldenmelon, and honeydew melon.
-			Not much of a harvest for any of them, but much fun.
-			Very fulfilling.
-			Failed to grow any brocolli, cauliflower, or potatoes.
-		</p>
-	</article>
-</main>
 
-<footer>
-	<address>
-		Contact me via email: <a href="mailto:beltranbeaverdam@gmail.com">beltranbeaverdam@gmail.com</a>.<br>
-		Or write me:<br>
-		237 N Scenic Dr W<br>
-		Washington UT, 84770<br>
-		USA
-	</address>
-</footer>
+{{define "footer"}}
+<address>
+	Contact me via email: <a href="mailto:beltranbeaverdam@gmail.com">beltranbeaverdam@gmail.com</a>.<br>
+	Or write me:<br>
+	237 N Scenic Dr W<br>
+	Washington UT, 84770<br>
+	USA
+</address>
 {{end}}

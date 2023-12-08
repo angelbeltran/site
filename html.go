@@ -10,6 +10,43 @@ import (
 	"strings"
 )
 
+const (
+	pageTemplate = `
+		{{define "title"}}{{end}}
+		<!DOCTYPE html>
+		<html>
+		<head>
+			{{block "head" .}}
+			<link rel="stylesheet" href="./css/styles.css">
+			<title>{{template "title" .}} - Angel Beltran</title>
+			{{end}}
+		</head>
+
+		<body>
+			{{block "header" .}}
+			<header>
+				<h1>{{template "title" .}}</h1>
+				<p>{{block "description" .}}{{end}}</p>
+
+				{{block "nav" .}}
+				<nav>
+					<a href="/home">Home</a>
+					<a href="/about-me">About Me</a>
+					<a href="/blog">Blog</a>
+				</nav>
+				{{end}}
+			</header>
+			{{end}}
+
+			<img src="/images/work-in-progress.jpeg" alt="Work in progress" width="500" height="500">
+
+			{{block "content" .}}{{end}}
+			{{block "footer" .}}{{end}}
+		</body>
+		</html>
+	`
+)
+
 type htmlTemplateServer struct {
 	root string
 }
@@ -46,21 +83,7 @@ func (s *htmlTemplateServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	page, err := template.New("page").Parse(`
-		<!DOCTYPE html>
-		<html>
-		<head>
-			{{block "head" .}}
-			<link rel="stylesheet" href="./css/styles.css">
-			<title>{{block "title" .}}{{end}}</title>
-			{{end}}
-		</head>
-
-		<body>
-			{{block "body" .}}{{end}}
-		</body>
-		</html>
-	`)
+	page, err := template.New("page").Parse(pageTemplate)
 	if err != nil {
 		s.serveErrorf(
 			w,
