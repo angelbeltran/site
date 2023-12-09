@@ -55,7 +55,7 @@ func (s *htmlTemplateServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		s.serveErrorf(
 			w,
 			http.StatusInternalServerError,
-			"Failed to parse outer html template %s: %v",
+			"Failed to parse outer html template %s: %s",
 			name,
 			err,
 		)
@@ -66,7 +66,7 @@ func (s *htmlTemplateServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		s.serveErrorf(
 			w,
 			http.StatusInternalServerError,
-			"Failed to parse html template %s: %v",
+			"Failed to parse html template %s: %s",
 			name,
 			err,
 		)
@@ -78,7 +78,7 @@ func (s *htmlTemplateServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		s.serveErrorf(
 			w,
 			http.StatusInternalServerError,
-			"Failed to execute full html template %s: %v",
+			"Failed to execute full html template %s: %s",
 			name,
 			err,
 		)
